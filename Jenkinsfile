@@ -23,7 +23,7 @@ pipeline{
         }
         stage('Docker image deployement'){
             steps{
-                sh 'docker run -d -p 9092:8080 firstimg'
+                sh 'docker run -d -p 9094:8080 firstimg'
             }
         }
     }
