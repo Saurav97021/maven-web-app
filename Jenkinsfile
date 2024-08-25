@@ -2,7 +2,7 @@ pipeline{
     agent any
     tools{
         maven 'M2'
-        Git 'git1'
+       
     }
     
     stages{
