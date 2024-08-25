@@ -1,32 +1,28 @@
-pipeline {
-  
-    agent {
-        label 'Ansible-Node'
+pipeline{
+    agent any
+    tools{
+        maven 'M2'
     }
     
-    tools{
-        maven "Maven-3.9.6"
-    }
-
-    stages {
-        stage('Clone') {
-            steps {
-               git 'https://github.com/ashokitschool/maven-web-app.git'
-            }
-        }
-        stage('Build') {
-            steps {
-               sh 'mvn clean package'
-            }
-        }
-        
-        stage('Create Image'){
+    stages{
+        stage('git checkout'){
             steps{
-               steps {
-                	script {
-                		sh 'ansible-playbook task.yml'
-                	}
-                }
+                git 'https://github.com/Saurav97021/maven-web-app.git'
+            }
+        }
+        stage('maven build'){
+            steps{
+                sh 'mvn clean package'
+            }
+        }
+        stage('Docker image build'){
+            steps{
+                sh 'docker build -t firstimg .'
+            }
+        }
+        stage('Docker image deployement'){
+            steps{
+                sh 'docker run -d -p 9090:8080 firstimg'
             }
         }
     }
