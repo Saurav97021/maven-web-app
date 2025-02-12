@@ -1,0 +1,124 @@
+import React from "react";
+import { useAppContext } from "../../context/index.jsx";
+export default function Uploaded() {
+  const { files, setFiles } = useAppContext();
+  let client = "Rani Ltd ";
+  let time = "500s";
+  
+
+
+  return (
+    <div className="flex justify-between min-h-screen">
+      <div className="mx-auto items-center justify-center w-1/2 ">
+        <div className="flex items-center justify-center py-10">
+          <strong>Client Name: {client}</strong>
+        </div>
+        <div className="justify-center items-center mx-20 w-auto">
+          <h3>Selected Files:</h3>
+          <div className="border-yellow-400 border-2 rounded-md w-min-[50px] mx-auto flex flex-col grow">
+            <table className="grow">
+              <thead className="">
+                <tr>
+                  <th className="border-2 border-yellow-300">No</th>
+                  <th className="border-2 border-yellow-300">FileName</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Array.from(files).map((file, index) => (
+                  <tr key={index}>
+                    <td className="border-2 border-yellow-300">{index}</td>
+                    <td className="border-2 border-yellow-300">{file.name}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div className="mx-auto w-1/2 items-center justify-center ">
+        <div className="flex justify-center items-center">
+          <button
+            disabled
+            className="bg-green-400 w-[200px] h-10 flex rounded-full items-center justify-center"
+          >
+            Process Invoices
+          </button>
+        </div>
+        <div className="flex justify-center items-center">
+          Total No of Invoices: {files.length}
+        </div>
+        <div className=" py-[30px] flex flex-col justify-center items-center">
+          <p>
+            Please wait. Your invoices are being processed.
+            <br />
+            You may refresh the page or navigate to a different client.
+            <br />
+            Your files will appear here once processed.
+          </p>
+        </div>
+        <div className="p-[5px] m-auto flex items-center justify-center">
+          <p className="bg-yellow-500 w-1/2 flex items-center justify-center">
+            Estimated Time-{time}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/*
+<div className="w-1/2 flex flex-col items-center justify-center ">
+        <div className="flex justify-center items-center">
+          <button disabled className="bg-green-400 w-[200px] h-10 flex rounded-full items-center justify-center">
+            In Process
+          </button>
+        </div>
+        <div className="flex justify-center items-center">
+          Total No of Invoices: {files.length}
+        </div>
+        <div className=" py-[30px] flex flex-col justify-center items-center">
+          <p>
+          Please wait. Your invoices are being processed.
+          <br/>
+          You may refresh the page or navigate to a different client.
+          <br/>
+          Your files will appear here once processed.
+          </p>
+        </div>
+
+        <div className="bg-yellow-500 w-1/2 flex justify-center items-center">
+        
+      </div>
+
+
+
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="w-1/2 flex items-center justify-center">
+        <table className="">
+          <thead className="">
+            <tr>
+              <th className="border-2 border-yellow-300">No</th>
+              <th className="border-2 border-yellow-300">FileName</th>
+              <th className="border-2 border-yellow-300">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Array.from(files).map((file, index) => (
+              <tr key={index}>
+                <td className="border-2 border-yellow-300">{index}</td>
+                <td className="border-2 border-yellow-300">{file.name}</td>
+                <td className="border-2 border-yellow-300">
+                  <button onClick={() => handleDelete(file)}>Delete</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      
+      <div className="m-auto w-1/2 flex items-center justify-center">
+        <p className="bg-green-400 w-[200px] rounded-full ">In Process</p>
+      </div>
+    </div>
+  );
+} */
