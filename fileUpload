@@ -1,0 +1,85 @@
+"use client";
+import { useRouter } from "next/navigation";
+import React from "react";
+import { useContext } from "react";
+import { useAppContext } from "../../context/index.jsx";
+
+
+export default function FileUpload() {
+  const { files, setFiles } = useAppContext()
+  const router = useRouter();
+  
+  let client = "Rani Ltd ";
+
+  // Handle file selection
+  const handleFileChange = (event) => {
+    const selectedFiles = event.target.files;
+    setFiles([...selectedFiles]);
+  };
+
+  const handleRoute = () => {
+    router.push("/processing2");
+  };
+
+  const handleDelete = (delfile) => {
+    const newFiles = files.filter((file) => file !== delfile);
+    setFiles([...newFiles]);
+  };
+
+  return (
+    <div className="flex justify-around min-h-screen">
+      <div className="mx-auto items-center justify-center w-1/2 ">
+        <div className="flex items-center justify-center py-10">
+          <strong>Client Name: {client}</strong>
+        </div>
+        <div className="justify-center items-center mx-20 w-auto">
+          <h1>Upload Invoices</h1>
+
+          <input
+            className="border-2"
+            type="file"
+            multiple
+            onChange={handleFileChange}
+          />
+
+          <h3>Selected Files:</h3>
+          <div className="border-yellow-400 border-2 rounded-md w-min-[50px] mx-auto flex flex-col grow">
+            <table className="grow">
+              <thead className="">
+                <tr>
+                  <th className="border-2 border-yellow-300">No</th>
+                  <th className="border-2 border-yellow-300">FileName</th>
+                  <th className="border-2 border-yellow-300">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Array.from(files).map((file, index) => (
+                  <tr key={index}>
+                    <td className="border-2 border-yellow-300">{index}</td>
+                    <td className="border-2 border-yellow-300">{file.name}</td>
+                    <td className="border-2 border-yellow-300">
+                      <button onClick={() => handleDelete(file)}>Delete</button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div className="mx-auto w-1/2 items-center justify-center ">
+        <div className="flex justify-center items-center">
+        <button
+          onClick={() => handleRoute()}
+          className="bg-green-400 w-[200px] h-10 flex rounded-full items-center justify-center"
+        >
+          Process Invoices
+        </button>
+        </div>
+        <div className="flex justify-center items-center">
+          Total No of Invoices: {files.length}
+        </div>
+      </div>
+    </div>
+  );
+}
